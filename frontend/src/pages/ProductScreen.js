@@ -1,11 +1,22 @@
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card } from 'react-bootstrap'
 
-import products from '../products'
 import Rating from '../components/Rating'
+import axios from 'axios'
 
 function ProductScreen() {
     const { id } = useParams()
+    const [product, setProduct] = useState({})
+
+    useEffect(() => {
+        async function fetchProduct() {
+            const response = await axios.get(`/api/products/${id}`)
+            setProduct(response.data)
+        }
+        fetchProduct()
+    }, [id])
+
     const {
         name,
         image,
@@ -14,7 +25,7 @@ function ProductScreen() {
         price,
         description,
         countInStock,
-    } = products.find((p) => p._id === id)
+    } = product
 
     const isInStock = countInStock > 0
 
