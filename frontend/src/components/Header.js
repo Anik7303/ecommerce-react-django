@@ -13,12 +13,12 @@ function Header() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <LinkContainer to="/cart">
-                                <Nav.Link>
+                                <Nav.Link active={false}>
                                     <i className="fas fa-shopping-cart"></i>Cart
                                 </Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/login">
-                                <Nav.Link>
+                                <Nav.Link active={false}>
                                     <i className="fas fa-user"></i>Login
                                 </Nav.Link>
                             </LinkContainer>

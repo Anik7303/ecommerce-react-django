@@ -17,8 +17,6 @@ function Home() {
         dispatch(listProducts())
     }, [dispatch])
 
-    console.log({ loading, products })
-
     if (loading) return <Loader />
     if (error) return <Message variant="danger">{error}</Message>
 
