@@ -1,19 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
-import axios from 'axios'
 
+import { listProducts } from '../actions'
 import Product from '../components/Product'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 function Home() {
-    const [products, setProducts] = useState([])
+    const { error, loading, products } = useSelector(
+        (state) => state.productList
+    )
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        async function fetchProducts() {
-            const response = await axios.get('/api/products')
-            setProducts(response.data)
-        }
-        fetchProducts()
-    }, [])
+        dispatch(listProducts())
+    }, [dispatch])
+
+    console.log({ loading, products })
+
+    if (loading) return <Loader />
+    if (error) return <Message variant="danger">{error}</Message>
 
     return (
         <div>
